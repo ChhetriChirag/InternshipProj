@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import MoodHistory from "../components/MoodHistory";
 import MoodCharts from "../components/MoodCharts";
+import MindfulnessWidgets from "../components/MindfulnessWidgets";
 import { fetchEntries } from "../services/api";
 
 function History() {
@@ -32,6 +33,7 @@ function History() {
         <div className="glass-card p-8 text-center text-slate-600">Loading entries...</div>
       ) : (
         <>
+          <MindfulnessWidgets entries={entries} />
           <MoodCharts entries={entries} />
           <MoodHistory entries={entries} />
         </>
