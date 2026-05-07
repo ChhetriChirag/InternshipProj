@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { fetchDatabaseView } from "../services/api";
+import { fetchDatabaseView, fetchEntries } from "../services/api";
 
 function Database() {
   const [loading, setLoading] = useState(true);
   const [meta, setMeta] = useState(null);
   const [entries, setEntries] = useState([]);
+  const [warning, setWarning] = useState("");
 
   useEffect(() => {
     const loadDatabaseView = async () => {
@@ -13,8 +14,26 @@ function Database() {
         const data = await fetchDatabaseView();
         setMeta(data.meta || null);
         setEntries(data.entries || []);
+        setWarning("");
       } catch (error) {
-        toast.error(error?.response?.data?.error || "Failed to load database view.");
+        const status = error?.response?.status;
+        const message = error?.response?.data?.error;
+
+        // Fallback: if /database is unavailable in deployed backend, show entries via /entries.
+        try {
+          const fallback = await fetchEntries();
+          setEntries(fallback.entries || []);
+          setMeta(null);
+          const warningMessage =
+            status === 404
+              ? "Database metadata endpoint is not available on this backend deployment yet. Showing entries only."
+              : "Could not load database metadata. Showing entries only.";
+          setWarning(warningMessage);
+          toast.error(message || warningMessage);
+        } catch {
+          setWarning("Unable to connect to backend. Please check API URL and backend deployment.");
+          toast.error(message || "Failed to load database view.");
+        }
       } finally {
         setLoading(false);
       }
@@ -35,6 +54,11 @@ function Database() {
         <div className="glass-card p-8 text-center text-slate-600">Loading database records...</div>
       ) : (
         <>
+          {warning ? (
+            <section className="glass-card border border-amber-300/70 bg-amber-50/70 p-4 text-sm text-amber-900">
+              {warning}
+            </section>
+          ) : null}
           <section className="glass-card p-5">
             <h3 className="mb-3 text-lg font-semibold text-slate-800">Table Metadata</h3>
             {!meta ? (
