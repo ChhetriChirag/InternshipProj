@@ -54,3 +54,22 @@ def get_entries():
             """
         ).fetchall()
     return [dict(row) for row in rows]
+
+
+def get_database_overview():
+    with get_connection() as conn:
+        row_count = conn.execute("SELECT COUNT(*) AS total FROM entries").fetchone()["total"]
+        first_entry = conn.execute(
+            "SELECT created_at FROM entries ORDER BY datetime(created_at) ASC LIMIT 1"
+        ).fetchone()
+        latest_entry = conn.execute(
+            "SELECT created_at FROM entries ORDER BY datetime(created_at) DESC LIMIT 1"
+        ).fetchone()
+
+    return {
+        "database": str(DB_PATH),
+        "table": "entries",
+        "total_rows": row_count,
+        "first_entry_at": first_entry["created_at"] if first_entry else None,
+        "latest_entry_at": latest_entry["created_at"] if latest_entry else None,
+    }

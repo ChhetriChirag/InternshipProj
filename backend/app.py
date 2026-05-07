@@ -1,7 +1,7 @@
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from database import get_entries, init_db, save_entry
+from database import get_database_overview, get_entries, init_db, save_entry
 from sentiment import classify_mood
 
 
@@ -37,6 +37,10 @@ def create_app():
     @app.get("/entries")
     def entries():
         return jsonify({"entries": get_entries()})
+
+    @app.get("/database")
+    def database():
+        return jsonify({"meta": get_database_overview(), "entries": get_entries()})
 
     return app
 

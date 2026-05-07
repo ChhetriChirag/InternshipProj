@@ -29,13 +29,13 @@ function Home() {
 
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-3xl border border-slate-700/40 bg-gradient-to-r from-slate-900/90 to-slate-800/70 p-8 shadow-glow transition duration-500 hover:border-cyan-400/40">
-        <div className="absolute -right-6 -top-8 h-36 w-36 animate-float rounded-full bg-cyan-500/25 blur-3xl" />
-        <div className="absolute -bottom-10 left-10 h-36 w-36 animate-float rounded-full bg-violet-500/20 blur-3xl" />
+      <section className="relative overflow-hidden rounded-3xl border border-white/80 bg-gradient-to-r from-fuchsia-500/85 via-rose-400/80 to-amber-300/85 p-8 shadow-xl transition duration-500 hover:scale-[1.01]">
+        <div className="absolute -right-6 -top-8 h-36 w-36 animate-float rounded-full bg-white/30 blur-3xl" />
+        <div className="absolute -bottom-10 left-10 h-36 w-36 animate-float rounded-full bg-sky-200/40 blur-3xl" />
         <div className="relative">
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">MoodSync AI</h1>
-          <p className="mt-3 text-lg text-slate-300">Track your emotions. Understand yourself.</p>
-          <p className="mt-3 max-w-2xl text-slate-400">
+          <p className="mt-3 text-lg text-pink-50">Track your emotions. Understand yourself.</p>
+          <p className="mt-3 max-w-2xl text-rose-50/95">
             Journal your thoughts, get AI-powered emotion insights, and build a beautiful mood timeline.
           </p>
         </div>

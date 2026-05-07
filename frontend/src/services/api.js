@@ -14,3 +14,8 @@ export const fetchEntries = async () => {
   const { data } = await api.get("/entries");
   return data;
 };
+
+export const fetchDatabaseView = async () => {
+  const { data } = await api.get("/database");
+  return data;
+};
