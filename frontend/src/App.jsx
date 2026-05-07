@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -6,15 +6,19 @@ import History from "./pages/History";
 import Database from "./pages/Database";
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen text-slate-800">
       <Navbar />
       <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/database" element={<Database />} />
-        </Routes>
+        <div key={location.pathname} className="route-fade-in">
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/database" element={<Database />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </div>

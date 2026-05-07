@@ -45,6 +45,17 @@ function Home() {
         <MoodForm onSubmit={handleAnalyze} loading={loading} />
         <ResultCard result={result} />
       </section>
+      {loading ? (
+        <section className="glass-card overflow-hidden p-5">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-sm font-medium text-slate-700">MoodSync AI is processing your journal entry...</p>
+            <span className="text-xs text-fuchsia-700">Analyzing</span>
+          </div>
+          <div className="processing-bar h-2 w-full overflow-hidden rounded-full bg-white/80">
+            <div className="processing-bar-inner h-full rounded-full bg-gradient-to-r from-fuchsia-500 via-rose-500 to-amber-400" />
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
